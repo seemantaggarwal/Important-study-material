@@ -1,0 +1,99 @@
+#include <iostream>
+
+using namespace std;
+
+class Stack {
+    int top;
+
+public:
+    int a[10];
+    Stack()
+    {
+        top=-1;
+    }
+    void push();
+    void pop();
+    void topp();
+    void display();
+};
+
+void Stack::topp()
+{
+    cout<<"TOP = "<<a[top]<<endl;
+}
+
+void Stack::push()
+{
+    int x;
+    cout<<"Enter element to be pushed "<<endl;
+    cin>>x;
+    if(top>=9)
+    {
+        cout<<"Stack Overflow ";
+        cout<<endl<<x<<" not pushed "<<endl;
+    }
+    else
+    {
+        top++;
+        a[top]=x;
+        cout<<x<<" pushed into the stack "<<endl;
+    }
+}
+
+void Stack::pop()
+{
+    if(top<0)
+    {
+        cout<<"Stack Underflow "<<endl;
+    }
+    else
+    {
+        int x=a[top--];
+        cout<<x<<"Popped from stack "<<endl;
+    }
+}
+
+void Stack::display()
+{
+    int t=top;
+    if(top==-1)
+        cout<<"Stack Empty "<<endl;
+    else
+        while(t>=0)
+        {
+            cout<<a[t]<<endl;
+            --t;
+        }
+}
+
+int main()
+{
+    class Stack a;
+    int choice;
+    char ch;
+    do
+    {
+        cout<<" MENU "<<endl;
+        cout<<"1. PUSH "<<endl;
+        cout<<"2. POP "<<endl;
+        cout<<"3. TOP "<<endl;
+        cout<<"4. DISPLAY "<<endl;
+        cout<<"Enter your choice ";
+        cin>>choice;
+        switch(choice)
+        {
+            case 1:a.push();
+                break;
+            case 2:a.pop();
+                break;
+            case 3:a.topp();
+                break;
+            case 4:a.display();
+                break;
+            default:break;
+        }
+        cout<<"Do you wish to continue? (y/n) "<<endl;
+        cin>>ch;
+    }while(ch=='y'||ch=='Y');
+    return 0;
+}
