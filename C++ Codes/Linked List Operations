@@ -1,0 +1,138 @@
+#include <iostream>
+#include<stdlib.h>
+
+using namespace std;
+
+struct node{
+            int value;
+            struct node *next;
+            };
+
+struct node *create()
+{
+    int n,i,x;
+    cout<<"Enter the number of elements in list : ";
+    cin>>n;
+    cout<<"Enter elements to be added: ";
+    cin>>x;
+    struct node *a,*p,*q;
+    a=(struct node *)malloc(sizeof (struct node));
+    a->value=x;
+    a->next=NULL;
+    q=a;
+    for(i=1;i<n;++i)
+    {
+        p=(struct node *)malloc(sizeof (struct node));
+        cin>>x;
+        p->value=x;
+        p->next=NULL;
+        q->next=p;
+        q=p;
+    }
+    return a;
+}
+
+struct node *insert(struct node *a)
+{
+    int x,pos;
+    cout<<"Enter position of new element : ";
+    cin>>pos;
+    struct node *add;
+    add=(struct node *)malloc(sizeof (struct node));
+    cout<<"Enter the element to be added : ";
+    cin>>x;
+    add->value=x;
+    add->next=NULL;
+    struct node *p;
+    int i=1;
+    if(a==NULL)
+        return add;
+    else
+    {
+        p=a;
+        while(i<pos-1)
+        {
+            p=p->next;
+            ++i;
+        }
+        add->next=p->next;
+        p->next=add;
+    }
+    cout<<add->value<<" pushed into the list. "<<endl;
+    return a;
+}
+
+struct node *del(struct node *a)
+{
+    int pos;
+    cout<<"Enter position to be deleted : ";
+    cin>>pos;
+    struct node *p,*q;
+    if(a==NULL)
+        cout<<"List already empty. Element could not deleted. "<<endl;
+    else
+    {
+        p=a->next;
+        q=a;
+        if(pos==1)
+            return a->next;
+        for(int i=1;i<pos-1;++i)
+        {
+            p=p->next;
+            q=q->next;
+        }
+        q->next=p->next;
+        cout<<p->value<<" removed from list "<<endl;
+        free(p);
+    }
+    return a;
+}
+
+void display(struct node *a)
+{
+    struct node *p=a;
+    if(a==NULL)
+        cout<<"List Empty "<<endl;
+    else
+    {
+        cout<<"List : ";
+        while(p!=NULL)
+        {
+            cout<<"     "<<p->value;
+            p=p->next;
+        }
+        cout<<endl;
+    }
+}
+
+int main()
+{
+    struct node *a;
+    a=NULL;
+    int choice;
+    do
+    {
+        cout<<" MENU "<<endl;
+        cout<<"1. CREATE "<<endl;
+        cout<<"2. INSERT "<<endl;
+        cout<<"3. DELETE "<<endl;
+        cout<<"4. DISPLAY "<<endl;
+        cout<<"5. EXIT "<<endl;
+        cout<<"Enter your choice ";
+        cin>>choice;
+        switch(choice)
+        {
+            case 1:a=create();
+                break;
+            case 2:a=insert(a);
+                break;
+            case 3:a=del(a);
+                break;
+            case 4:display(a);
+                break;
+            default:break;
+        }
+    }while(choice!=5);
+    return 0;
+}
+
